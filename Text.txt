@@ -1,0 +1,261 @@
+//buena, esta es copia seg
+void siHayInterrupcion_(void){
+	//1  actualiza la hora del RTC -->micro
+	//2  apaga alarma RTC
+	//3  comprueba programaciones horarias y acuta sobre salidas
+	//4  programa siguiente alarma
+
+	
+	Serial.println("----cambio de minuto----");
+
+	//1  actualizamos la hora marcada por el RTC --> micro
+	leerHora();
+	actualizarPantallaPpalLCD();
+	
+	//2  apaga alarma RTC
+	RTC.resetAlarms();
+
+	//3  comprueba programaciones horarias y acuta sobre salidas
+	//recorremos las 20 filas de la tabla de horarios
+	for(uint8_t prog=0; prog<20; prog++){			
+		Serial.println("");
+		Serial.print("programa " + (String)prog + " - ");
+		if(tablaHorarioEncendidos[prog][horarioEnable] == progHabilitado){					//si el prog 1 esta habilitado
+			Serial.print("habilitado - ");
+			
+			//--------------------------------------------------------------
+			// TIPO DE HORARIO --> ORTO (ENCIENDE O APAGA SEGUN ASTRONOMICO)
+			//--------------------------------------------------------------
+			if(tablaHorarioEncendidos[prog][horarioTipo] == orto){							//y esta configurado como orto
+				Serial.print("orto\t");
+				if(horaActual>=horaAmanece && minutoActual>=minutoAmanece){		//si pasa de la hora de orto
+					if(tablaHorarioEncendidos[prog][horarioAccion]==activar){
+						activarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+					}
+					else{
+						desactivarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+					}				
+				}
+
+				if(tablaHorarioEncendidos[prog][horarioAccion]==activar){
+
+				}
+				else if(tablaHorarioEncendidos[prog][horarioAccion]==desactivar){
+
+				}
+				
+
+			}
+
+			//---------------------------------------------------------------
+			// TIPO DE HORARIO --> OCASO (ENCIENDE O APAGA SEGUN ASTRONOMICO)
+			//---------------------------------------------------------------
+			else if(tablaHorarioEncendidos[prog][horarioTipo] == ocaso){
+				Serial.print("ocaso\t");
+			}
+
+
+			//---------------------------------------------------------------------
+			// TIPO DE HORARIO --> ASTRONOMICO (ENCIENDE Y APAGA SEGUN ASTRONOMICO)
+			//---------------------------------------------------------------------
+			else if(tablaHorarioEncendidos[prog][horarioTipo] == astro){
+					Serial.print("astronomico - ");
+
+					if(horaActual >= horaAnochece & minutoActual >= minutoAnochece){				//si la hora y el minuto actual es igual que la hora de ocaso
+						
+							activarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);	
+							//Serial.println(">anochece -> salida " + (String)tablaHorarioEncendidos[prog][horarioCircuito] + " activada");					
+					}
+
+					else if (horaActual<= horaAmanece && minutoActual<minutoAmanece){
+						
+							activarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+							//Serial.println("<amanece -> salida " + (String)tablaHorarioEncendidos[prog][horarioCircuito] + " activada");								
+					}
+
+					else {
+						desactivarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+					}
+			}					
+
+			//---------------------------------------------------------------------------------------------
+			// TIPO DE HORARIO --> HORA FIJA (ENCIENDE O APAGA SEGUN LA HORA FIJA QUE INDIQUEMOS NOSOTROS)
+			//---------------------------------------------------------------------------------------------
+			else if(tablaHorarioEncendidos[prog][horarioTipo] == horaFija){
+				Serial.print("h. fija\t");
+
+			}
+		}
+		
+		else if(tablaHorarioEncendidos[prog][horarioEnable] == progDeshabilitado){
+			Serial.print("desabilitado");
+		}
+	}
+
+	//programamos la siguiente interrupcion
+	RTCrenuevaInterrupcion();
+
+}
+
+
+
+
+
+
+
+//cpia de seguridad
+//comprueba si hay que actuar sobre alguna salida por accion: astronomica
+void revisaProgramacionAstronomica1(){
+
+	//recorremos los 20 programas
+	for(uint8_t prog=0; prog<20;prog++){
+		lineas();
+		Serial.print("prog "+(String)prog);
+
+		//si el programa esta habilitado
+		if(tablaHorarioEncendidos[prog][horarioEnable]==progHabilitado){
+			Serial.print(" enable ");
+			
+			//y si el programa es tipo astronomico
+			if(tablaHorarioEncendidos[prog][horarioTipo] == astro){
+				Serial.println(" tipo astronomico");
+				Serial.println("hora:"+(String)horaActual + ":" + (String)minutoActual);
+				Serial.println("amanece:"+(String)horaAmanece + ":" + (String)minutoAmanece);
+				Serial.println("anochece:"+(String)horaAnochece + ":" + (String)minutoAnochece);
+
+				//si estamos despues del ocaso
+				if(horaActual > horaAnochece){	
+
+					// if(minutoActual >= minutoAnochece){
+						//activarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);	
+						Serial.println("785: es despues del ocaso");					
+					 //}
+				}
+
+				//o si estamos antes del orto
+				else if (horaActual <= horaAmanece){
+					 if(minutoActual < minutoAmanece){
+					
+						activarSalida(1);
+						Serial.println("786: es antes del orto");
+					 }
+				}
+
+				//de lo contrario estamos durante el dia
+				else {
+					//desactivarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+					Serial.println("777: es de dia");
+				}
+
+				refrescarSalidas();
+				Serial.println("salimos");
+
+			}
+		}	
+	}
+}
+
+
+
+
+//bueno
+//comprueba si hay que actuar sobre alguna salida por accion: astronomica
+//devuelve 1 si hay programacion para esa salida
+//devuelve 0 si la salida no esta programada
+bool revisaProgramacionAstronomica(uint8_t circuito){
+
+	bool flag = false;
+
+	//recorremos los 20 programas
+	for(uint8_t prog=0; prog<19; prog++){
+	
+		//si el programa esta habilitado
+		if(tablaHorarioEncendidos[prog][horarioEnable]==progHabilitado){
+
+			//y si el programa es tipo astronomico
+			if(tablaHorarioEncendidos[prog][horarioTipo] == astro){
+	
+				//si el programa es para el circuito actual
+				if(tablaHorarioEncendidos[prog][horarioCircuito] == circuito){
+
+					//si estamos despues del ocaso o antes del orto
+					if((esDespuesOcaso()==true)||(esAntesOrto()==true)){
+							activarSalida(circuito);
+							Serial.println("1157: --- es de noche ---");
+							flag=true;
+					}
+
+					//de lo contrario estamos durante el dia
+					else {
+						desactivarSalida(circuito);
+						Serial.println("777: --- es de dia ---");
+						flag=true;
+					}
+				}
+			}
+		}	
+	}
+
+	//si no existe algun programa habilitado para el circuito
+	return flag;
+
+}
+
+
+
+
+//bueno
+//comprueba si hay que actuar sobre alguna salida por accion: ocaso
+// si despues del ocaso devuelve 1 
+// sino devuelve 0
+bool revisaProgramacionOcaso(uint8_t circuito){
+	
+	bool flag = false;
+	//recorremos los 20 programas
+	for(uint8_t prog=0; prog<19;prog++){
+
+		//si el programa esta habilitado
+		if(tablaHorarioEncendidos[prog][horarioEnable]==progHabilitado){
+
+			//si el programa es tipo orto
+			if(tablaHorarioEncendidos[prog][horarioTipo] == ocaso){
+
+				//si el programa es para el circuito actual
+				if(tablaHorarioEncendidos[prog][horarioCircuito] == circuito){
+					
+					//si estamos despues del ocaso
+					if (esDespuesOcaso()==true){
+					
+						if(tablaHorarioEncendidos[prog][horarioAccion] == activar){
+							activarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+							flag = true;
+						}
+						else{
+							desactivarSalida(tablaHorarioEncendidos[prog][horarioCircuito]);
+							flag = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//si no existe algun programa habilitado para el circuito
+	return flag;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

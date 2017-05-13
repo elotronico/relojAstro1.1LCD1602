@@ -1,0 +1,13 @@
+-----------------------------------------------------------------
+----------------PRIMARIO---------------------------------------
+-----------------------------------------------------------------
+- pendiente programar el cambio de horario verano/invierno
+- hay que tener en cuenta que al cambiar la fecha hora hay que hacer recalculo del horario orto y ocaso
+
+
+-----------------------------------------------------------------
+----------------SECUNDARIO---------------------------------------
+-----------------------------------------------------------------
+- agregar tabla con listado de ciudades para cambiar coordenadas
+- agregar funcion de modificar zona GTM
+

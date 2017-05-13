@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EA347DFF-06CA-42E9-8956-17904A82B824}</ProjectGuid>
+    <RootNamespace>relojAstro11LCD1602</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\RTC_BUENO\relojAstro1.1LCD1602;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Arduino-LiquidCrystal-I2C-library-master;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Arduino-LiquidCrystal-I2C-library-master\utility;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\DS1337RTC-master;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\DS1337RTC-master\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\EEPROM;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\EEPROM\utility;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Keypad\src;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Keypad\src\utility;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Time;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Time\utility;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\TimeLord-master;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\TimeLord-master\utility;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\Extensions\y3bytfpx.k3w\Micro Platforms\default\debuggers;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\RTC_BUENO\relojAstro1.1LCD1602;C:\Program Files (x86)\Arduino\hardware\arduino\avr\cores\arduino;C:\Program Files (x86)\Arduino\hardware\arduino\avr\variants\mega;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Arduino-LiquidCrystal-I2C-library-master;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\DS1337RTC-master;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\EEPROM;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Keypad\src;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\Time;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries\TimeLord-master;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire;C:\Program Files (x86)\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries;C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\Extensions\y3bytfpx.k3w\Micro Platforms\default\debuggers;D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\libraries;C:\Program Files (x86)\Arduino\hardware\arduino\avr\libraries\Wire\utility;C:\Program Files (x86)\Arduino\hardware\tools\avr/avr/include/;C:\Program Files (x86)\Arduino\hardware\tools\avr//avr/include/avr/;C:\Program Files (x86)\Arduino\hardware\tools\avr/lib\gcc\avr\4.8.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>D:\Sincronizado\Documentos\Taller\Proyectos\Arduino\RTC_BUENO\relojAstro1.1LCD1602\__vm\.relojAstro1.1LCD1602.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>__AVR_ATmega2560__;F_CPU=16000000L;ARDUINO=10606;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="accesEEPROM.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="astronomico.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="auxiliar.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="borrar.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="menu.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="menuAcciones.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="programacionesHorarias.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="reloj.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="relojAstro1.1LCD1602.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="salidas.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="teclado.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header.h">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
+    <ClInclude Include="__vm\.relojAstro1.1LCD1602.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Tareas pendientes.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM18" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
